@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<fx:root fx:id="root_pane" styleClass="node-root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="96.0" prefWidth="90.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="styles.css">
+   <children>
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <GridPane fx:id="title_bar" styleClass="node-overlay">
+              <columnConstraints>
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" prefWidth="10.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="15.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                   <Label fx:id="title_label" styleClass="title-label" GridPane.columnIndex="1" text="Label" />
+                   <AnchorPane fx:id="title_close" styleClass="title-close" GridPane.columnIndex="2" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0">
+                       <children>
+                           <Label AnchorPane.leftAnchor="4.0" text="X" />
+                       </children>
+                   </AnchorPane>
+               </children>
+            </GridPane>
+            <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="81.0">
+               <children>
+                   <VBox fx:id="left_links" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0">
+                       <children>
+                       </children>
+                   </VBox>
+                  <VBox fx:id="content" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="60.0" />
+                  <VBox fx:id="right_links" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0">
+                      <children>
+                      </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</fx:root>
