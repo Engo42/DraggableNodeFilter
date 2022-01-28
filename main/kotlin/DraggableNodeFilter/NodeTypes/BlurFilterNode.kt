@@ -1,4 +1,4 @@
-package GUI
+package DraggableNodeFilter
 
 import javafx.geometry.Rectangle2D
 import javafx.scene.SnapshotParameters

@@ -1,4 +1,4 @@
-package GUI
+package DraggableNodeFilter
 
 import javafx.application.Application
 import javafx.event.ActionEvent
@@ -44,41 +44,41 @@ class FilterList {
         addButton("Transform Scale", EventHandler {  nodeSpace.children.add(TransformScaleNode())  })
         addButton("Transform Rotate", EventHandler {  nodeSpace.children.add(TransformRotateNode())  })
     }
-    private fun addButton(name: String, callback: EventHandler<ActionEvent>) {
+    private fun addButton(name: String, eventHandler: EventHandler<ActionEvent>) {
         val btnAddImage = Button(name)
-        btnAddImage.onAction = callback
+        btnAddImage.onAction = eventHandler
         btnAddImage.prefWidth = 150.0
         node.children.add(btnAddImage)
     }
 }
 
-class MyMenuBar(primaryStage: Stage, app: App) {
+class MyMenuBar() {
     var node = MenuBar();
     init {
         val fileMenu = Menu("Фаил")
         val fileMenuSave = MenuItem("Сохранить")
         fileMenuSave.onAction = EventHandler {
-            app.saveImage(false, app.nodeFinish as FinishNode, primaryStage)
+            app.saveImage(false)
         }
         val fileMenuQuickSave = MenuItem("Быстрое сохранение")
         fileMenuQuickSave.onAction = EventHandler {
-            app.saveImage(true, app.nodeFinish as FinishNode, primaryStage)
+            app.saveImage(true)
         }
         val fileMenuOpen = MenuItem("Открыть")
         fileMenuOpen.onAction = EventHandler {
-            app.openImage(app.nodeStart as StartNode, primaryStage)
+            app.openImage()
         }
         val fileMenuSaveScene = MenuItem("Сохранить сцену")
         fileMenuSaveScene.onAction = EventHandler {
-            app.saveScene(app.nodeList, primaryStage)
+            app.saveScene()
         }
         val fileMenuOpenScene = MenuItem("Открыть сцену")
         fileMenuOpenScene.onAction = EventHandler {
-            app.openScene(app.nodeList, primaryStage)
+            app.openScene()
         }
         val fileMenuExit = MenuItem("Выйти")
         fileMenuExit.onAction = EventHandler {
-            primaryStage.close();
+            app.primaryStage.close();
         }
         fileMenu.accelerator = KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN)
         fileMenuSave.accelerator = KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN)
@@ -90,8 +90,8 @@ class MyMenuBar(primaryStage: Stage, app: App) {
 
 class App: Application() {
     var nodeList = mutableSetOf<DraggableNode>()
-    lateinit var nodeStart: DraggableNode
-    lateinit var nodeFinish: DraggableNode
+    lateinit var nodeStart: StartNode
+    lateinit var nodeFinish: FinishNode
     val nodeSpace = AnchorPane()
     val fullImageView = ImageView()
     lateinit var primaryStage: Stage
@@ -104,7 +104,7 @@ class App: Application() {
         val root = VBox()
         val hBox = HBox()
 
-        val menuBar = MyMenuBar(primaryStage, this)
+        val menuBar = MyMenuBar()
         root.children.add(menuBar.node)
 
         fullImageView.isManaged = false
@@ -166,22 +166,22 @@ class App: Application() {
         primaryStage.show()
     }
 
-    fun chooseFileToOpen(primaryStage: Stage): File {
+    fun chooseFileToOpen(): File {
         val fileChooser = FileChooser()
         val imageFilter = FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png")
         fileChooser.extensionFilters.add(imageFilter)
         fileChooser.initialDirectory = File(getLastDirectory("open"))
         return fileChooser.showOpenDialog(primaryStage)
     }
-    fun openImage(nodeStart: StartNode, primaryStage: Stage) {
-        var file = chooseFileToOpen(primaryStage)
+    fun openImage() {
+        var file = chooseFileToOpen()
         writeLastDirectory("open", file.path)
         val image = Image(file.toURI().toString());
         nodeStart.imageView.image = image
         nodeStart.imagePath = file.path
         nodeStart.update()
     }
-    fun saveImage(useDefaultDirectory: Boolean, nodeFinish: FinishNode, primaryStage: Stage) {
+    fun saveImage(useDefaultDirectory: Boolean) {
         val file: File
         if (useDefaultDirectory) {
             file = File(System.getenv("USERPROFILE") + "\\Documents\\quickSave.png")
@@ -198,7 +198,7 @@ class App: Application() {
             writeLastDirectory("save", file.path)
         }
     }
-    fun openScene(nodeList: MutableSet<DraggableNode>, primaryStage: Stage) {
+    fun openScene() {
         val fileChooser = FileChooser()
         val imageFilter = FileChooser.ExtensionFilter("Scene Files", "*.scene")
         fileChooser.extensionFilters.add(imageFilter)
@@ -274,11 +274,11 @@ class App: Application() {
                         nodeMap[id]?.imageView?.image = Image(stream)
                         (nodeMap[id] as StartNode).imagePath = info[5]
                     }
-                    nodeStart = nodeMap[id]!!
+                    nodeStart = (nodeMap[id] as StartNode?)!!
                 }
                 "FinishImage" -> {
                     nodeMap[id] = FinishNode()
-                    nodeFinish = nodeMap[id]!!
+                    nodeFinish = (nodeMap[id] as FinishNode?)!!
                 }
                 "AddImage" -> nodeMap[id] = AddImageNode()
                 "AddText" -> nodeMap[id] = AddTextNode()
@@ -315,7 +315,7 @@ class App: Application() {
 
         writeLastDirectory("openScene", file.path)
     }
-    fun saveScene(nodeList: MutableSet<DraggableNode>, primaryStage: Stage) {
+    fun saveScene() {
         val fileDir: File
         val fileChooser = FileChooser()
         val imageFilter = FileChooser.ExtensionFilter("Scene Files", "*.scene")

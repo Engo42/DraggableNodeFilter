@@ -1,4 +1,4 @@
-package GUI
+package DraggableNodeFilter
 
 import javafx.event.EventHandler
 import javafx.fxml.FXML
@@ -15,8 +15,6 @@ import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.VBox
 import java.util.*
-import javax.print.attribute.IntegerSyntax
-import kotlin.properties.Delegates
 
 lateinit var LinkStartNode: DraggableNode
 

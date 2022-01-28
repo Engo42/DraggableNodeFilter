@@ -1,4 +1,4 @@
-package GUI
+package DraggableNodeFilter
 
 import javafx.scene.image.Image
 import javafx.scene.image.WritableImage

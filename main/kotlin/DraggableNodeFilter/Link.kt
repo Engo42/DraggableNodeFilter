@@ -1,21 +1,12 @@
-package GUI
+package DraggableNodeFilter
 
 import javafx.beans.binding.Bindings
 import javafx.beans.binding.When
 import javafx.beans.property.SimpleDoubleProperty
-import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.geometry.Point2D
-import javafx.scene.Node
-import javafx.scene.control.Label
-import javafx.scene.input.ClipboardContent
-import javafx.scene.input.DragEvent
-import javafx.scene.input.MouseEvent
-import javafx.scene.input.TransferMode
 import javafx.scene.layout.AnchorPane
-import javafx.scene.layout.GridPane
-import javafx.scene.layout.VBox
 import javafx.scene.shape.CubicCurve
 import java.io.IOException
 import java.util.*

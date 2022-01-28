@@ -1,4 +1,4 @@
-package GUI
+package DraggableNodeFilter
 
 import javafx.scene.SnapshotParameters
 import javafx.scene.image.Image

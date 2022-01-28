@@ -1,4 +1,4 @@
-package GUI
+package DraggableNodeFilter
 
 class StartNode: DraggableNode() {
     var imagePath: String = "null"

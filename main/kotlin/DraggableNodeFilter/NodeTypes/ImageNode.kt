@@ -1,9 +1,8 @@
-package GUI
+package DraggableNodeFilter
 
 import javafx.event.EventHandler
 import javafx.scene.control.Button
 import javafx.scene.image.Image
-import javafx.stage.Stage
 
 class ImageNode() : DraggableNode() {
     val openButton = Button("Open")

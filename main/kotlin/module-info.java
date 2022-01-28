@@ -6,6 +6,6 @@ module com.example.demo {
     requires org.kordamp.bootstrapfx.core;
     requires java.desktop;
 
-    opens GUI to javafx.fxml;
-    exports GUI;
+    opens DraggableNodeFilter to javafx.fxml;
+    exports DraggableNodeFilter;
 }
