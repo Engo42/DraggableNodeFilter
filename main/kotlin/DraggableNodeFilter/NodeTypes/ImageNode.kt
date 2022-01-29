@@ -16,10 +16,10 @@ class ImageNode() : DraggableNode() {
         imageView.isManaged = false
 
         openButton.onAction = EventHandler {
-            var file = app.chooseFileToOpen(app.primaryStage)
+            val file = app.chooseFileToOpen()
             app.writeLastDirectory("open", file.path)
             imagePath = file.path
-            val image = Image(file.toURI().toString());
+            val image = Image(file.toURI().toString())
             imageView.isManaged = true
             imageView.image = image
             next_node?.update()
