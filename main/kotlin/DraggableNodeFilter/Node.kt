@@ -218,6 +218,8 @@ open class DraggableNode : AnchorPane() {
 
     fun notALoop(node1: DraggableNode, node2: DraggableNode): Boolean {
         var it = node2
+        if (node1 == node2)
+            return false
         while (it.next_node != null) {
             if (it.next_node == node1)
                 return false
